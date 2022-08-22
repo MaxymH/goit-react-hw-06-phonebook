@@ -6,7 +6,6 @@ import { logger } from "redux-logger";
 const middleware = [...getDefaultMiddleware(), logger]
 const store = configureStore({
     reducer: {
-    
         phoneBook: phoneBookReduce,
     
     },

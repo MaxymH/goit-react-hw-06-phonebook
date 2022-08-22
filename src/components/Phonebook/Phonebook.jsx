@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState} from "react"
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from "react-redux";
 
-import { getContacts,  } from "../../redux/phoneBook/phoneBook-selecctor";
+import { getContacts,getFilter } from "../../redux/phoneBook/phoneBook-selecctor";
 import * as actions from "../../redux/phoneBook/phoneBook-actions";
 import Filter from "./Filter";
 import TitlePhonebook from "./TitlePhonebook";
@@ -12,7 +12,10 @@ import ContactList from "./ContactList";
 
 const Phonebook = () => {
     const contacts = useSelector(getContacts)
-    const [filter, setFilter] = useState('')
+    const filter = useSelector(getFilter)
+    
+    
+    
     
     const dispatch = useDispatch()
 
@@ -46,9 +49,9 @@ const Phonebook = () => {
     }
     const filterr =useCallback(
     e => {
-        setFilter(e.target.value)
+        return dispatch(actions.filter(e.target.value))
     },
-    []
+    [dispatch]
     ); 
 
     const filteredContact = () => {
