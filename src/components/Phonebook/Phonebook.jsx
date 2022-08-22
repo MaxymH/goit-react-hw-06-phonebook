@@ -15,8 +15,6 @@ const Phonebook = () => {
     const filter = useSelector(getFilter)
     
     
-    
-    
     const dispatch = useDispatch()
 
 
@@ -33,7 +31,7 @@ const Phonebook = () => {
     }, [contacts])
     
     const addContact = ({ name, number }) => {
-        if (contacts.find(item => item === name.toLowerCase())) {
+        if (contacts.find(item => item.name.toLowerCase() === name.toLowerCase())) {
             alert(`${name} is already in your Phonebook`);
             return;
             }
