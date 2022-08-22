@@ -1,7 +1,8 @@
-import Test from "./test"
+import Phonebook from "./Phonebook";
 
 export const App = () => {
+  
   return (
-      <Test/>
+    <Phonebook/>
   );
 };
