@@ -1,19 +1,18 @@
 
-import { useCallback} from "react"
+import { useCallback, useEffect, useState} from "react"
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from "react-redux";
 
-import { getContacts, getFilter } from "../redux/phoneBook/phoneBook-selecctor";
-import * as actions from "../redux/phoneBook/phoneBook-actions";
+import { getContacts,  } from "../../redux/phoneBook/phoneBook-selecctor";
+import * as actions from "../../redux/phoneBook/phoneBook-actions";
 import Filter from "./Filter";
 import TitlePhonebook from "./TitlePhonebook";
 import Form from "./Form"
 import ContactList from "./ContactList";
 
 const Phonebook = () => {
-    const filter = useSelector(getFilter)
     const contacts = useSelector(getContacts)
-
+    const [filter, setFilter] = useState('')
     
     const dispatch = useDispatch()
 
@@ -24,11 +23,14 @@ const Phonebook = () => {
     },
     [dispatch]
     );
-
     
+    useEffect(() => {
+    
+    localStorage.setItem('contacts', JSON.stringify(contacts))
+    }, [contacts])
     
     const addContact = ({ name, number }) => {
-        if (contacts.find(item => item.name === name)) {
+        if (contacts.find(item => item === name.toLowerCase())) {
             alert(`${name} is already in your Phonebook`);
             return;
             }
@@ -44,9 +46,9 @@ const Phonebook = () => {
     }
     const filterr =useCallback(
     e => {
-        return dispatch(actions.filter(e.target.value));
+        setFilter(e.target.value)
     },
-    [dispatch]
+    []
     ); 
 
     const filteredContact = () => {

@@ -1,21 +1,32 @@
-
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import s from './form.module.css'
-import * as actions from "../../redux/form/form-actions";
-import { useSelector ,useDispatch} from "react-redux";
-import {  getName, getNumber} from "../../redux/form/form-selector";
-const Form = ({ onSubmit}) => {
-    
-    const name = useSelector(getName)
-    const number = useSelector(getNumber)
 
-    const dispatch = useDispatch()
-    
+import s from './form.module.css'
+
+const Form = ({onSubmit}) => {
+    const [name, setName] = useState('')
+    const [number, setNumber] = useState('')
+
+   const handleChange = (e) => {
+        const {name , value} = e.target
+        switch (name) {
+            case 'name':
+                setName(value)
+                break;
+            
+            case 'number': 
+                setNumber(value)
+                break;
+        
+            default:
+                return;
+        }
+    }
     const onSubmitForm = e => {
         e.preventDefault()
-        onSubmit({ name, number })
-        dispatch(actions.name(''))
-        dispatch(actions.number(''))
+        onSubmit({name, number})
+        setName('')
+        setNumber('')
     }
 
     return (
@@ -24,8 +35,8 @@ const Form = ({ onSubmit}) => {
                 <label>
                     <input
                         className={s.input}
-                        onChange={(e) => dispatch(actions.name(e.target.value))}
-                        value={name || ''}
+                        onChange={handleChange}
+                        value={name}
                         type="text"
                         name="name"
                         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -37,8 +48,8 @@ const Form = ({ onSubmit}) => {
                 <label>
                     <input
                         className={s.input}
-                        onChange={(e) => dispatch(actions.number(e.target.value))}
-                        value={number || ''}
+                        onChange={handleChange}
+                        value={number}
                         type="tel"
                         name="number"
                         pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
