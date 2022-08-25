@@ -3,8 +3,7 @@ import { useCallback, useEffect} from "react"
 import { nanoid } from 'nanoid';
 import { useSelector, useDispatch } from "react-redux";
 
-import { getContacts } from "../../redux/phoneBook/phoneBook-selecctor";
-import { getFiltered } from "../../redux/filter/filter-selectors";
+import { getContacts, getFiltered } from "../../redux/phoneBook/phoneBook-selecctor";
 import * as actions from "../../redux/phoneBook/phoneBook-actions";
 import Filter from "./Filter";
 import TitlePhonebook from "./TitlePhonebook";
